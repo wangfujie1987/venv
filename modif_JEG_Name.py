@@ -38,17 +38,17 @@ for filename in os.listdir(dir):  # 返回的filename为str类型
                     tagesnew = str(tags[FIELD]).replace(':', '').replace(' ', '_') + '_' + str(tot) + \
                                os.path.splitext(filename)[1]  # str(tot)#存在相同的拍摄时间
                     tot += 1
-                os.renames(dir1 + filename, dir1 + tagesnew)  # 修改文件名，新的文件名：拍摄时间_原文件名
-            else:  # 如果无拍摄日期，则修改为文件的创建时间
+                os.renames(dir1 + filename, dir1 + tagesnew)  # 修改文件名，新的文件名：拍摄时间+（重复次数）
+            else:  # 如果无拍摄日期，或者DateTimeOriginal 存在但为空值，则修改为文件的创建时间（修改时间）
                 newname1 = get_FileCreateTime(dir + '\\' + filename)  # 获取文件的创建时间
                 newname = str(newname1).replace(':', '').replace(' ', '_').replace('-','') + os.path.splitext(filename)[
                     1]
                 tot = 1
                 while os.path.exists(dir1 + newname):
                     newname = str(newname1).replace(':', '').replace(' ', '_') + '_' + str(tot) + \
-                              os.path.splitext(filename)[1]  # str(tot)#存在相同的拍摄时间
+                              os.path.splitext(filename)[1]  # str(tot)#存在相同的创建时间
                     tot += 1
-                os.renames(dir1 + filename, dir1 + newname)  # 修改文件名，新的文件名：拍摄时间
+                os.renames(dir1 + filename, dir1 + newname)  # 修改文件名，新的文件名：创建时间+重复次数
         else:#其它文件则根据文件创建时间修改
             newname1 = get_FileCreateTime(dir + '\\' + filename)  # 获取文件的创建时间
             newname = str(newname1).replace(':', '').replace(' ', '_').replace('-','') + os.path.splitext(filename)[
@@ -60,7 +60,7 @@ for filename in os.listdir(dir):  # 返回的filename为str类型
                 tot += 1
             # print(newname1)
             # print(newname)
-            os.renames(dir1 + filename, dir1 + newname)  # 修改文件名，新的文件名：创建时间_原文件名
+            os.renames(dir1 + filename, dir1 + newname)  # 修改文件名，新的文件名：创建时间+重复次数
         print('%s 文件名修改成功' % filename)
     except:
          print('error')
