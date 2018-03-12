@@ -65,3 +65,4 @@ for filename in os.listdir(dir):  # 返回的filename为str类型
     except:
          print('error')
          continue  # 如果有异常，则继续下一张
+#20180312 branch
