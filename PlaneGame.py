@@ -14,8 +14,9 @@ class Bullet:
         #处理子弹的运动
         if self.y < 0:
             mouseX, mouseY = pygame.mouse.get_pos()
-            self.x = mouseX - self.image.get_width() / 2
-            self.y = mouseY - self.image.get_height() / 2
+            self.x = mouseX #- self.image.get_width() / 2
+            self.y = mouseY #- self.image.get_height() / 2
+            print('test')
         else:
             self.y -= 5
 
@@ -28,11 +29,8 @@ pygame.display.set_caption("Hello, World!")
 # 设置窗口标题
 background = pygame.image.load('bg.jpg').convert()
 plane = pygame.image.load('plane.jpg').convert_alpha()
-bullet = pygame.image.load('bullet.jpg').convert_alpha()
-# 加载并转换图像
-i = 1
-bullet_x = 100
-bullet_y = 100
+#bullet = pygame.image.load('bullet.jpg').convert_alpha()
+bullet=Bullet()
 while True:
     # 游戏主循环
     for event in pygame.event.get():
@@ -41,18 +39,17 @@ while True:
             pygame.quit()
             exit()
     screen.blit(background, (0, 0))
-    # 获取鼠标的位置
-    x, y = pygame.mouse.get_pos()
-    print('x:%s,y:%s' % (x, y))
     # 如果子弹超出边界,则回到原点
-    if bullet_y < 1:
-        bullet_y = y - plane.get_height() / 2
-        bullet_x = x  # -plane.get_width()/2
-    else:
-        bullet_y = bullet_y - 5
+    # if bullet_y < 1:
+    #     bullet_y = y - plane.get_height() / 2
+    #     bullet_x = x  # -plane.get_width()/2
+    # else:
+    #     bullet_y = bullet_y - 5
+    bullet.move()
     # 把子弹画到屏幕上 初始位置为飞机后面
-    screen.blit(bullet, (bullet_x, bullet_y))
+    screen.blit(bullet.image, (bullet.x, bullet.y))
     # 计算飞机的左上角位置
+    x, y = pygame.mouse.get_pos()
     x -= plane.get_width() / 2
     y -= plane.get_height() / 2
     # 把飞机画到屏幕上
