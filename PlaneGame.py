@@ -59,4 +59,4 @@ while True:
     screen.blit(plane, (x, y))
     # 刷新一下画面
     pygame.display.update()
-#ss
+#sssss
